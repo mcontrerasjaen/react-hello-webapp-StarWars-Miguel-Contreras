@@ -1,12 +1,12 @@
 export const initialStore = () => {
-  // Intentamos leer lo que hay en el bolsillo (localStorage)
+ 
   const persistencia = localStorage.getItem("starwars_store");
   
   if (persistencia) {
       return JSON.parse(persistencia);
   }
 
-  // Si no hay nada, devolvemos el estado por defecto
+  
   return {
     personajes: [],
     naves: [],
@@ -16,7 +16,7 @@ export const initialStore = () => {
 }
 
 export default function storeReducer(store, action = {}) {
-  // ... tu código de switch actual (está perfecto) ...
+ 
   switch (action.type) {
     case 'set_personajes':
       return { ...store, personajes: action.payload };

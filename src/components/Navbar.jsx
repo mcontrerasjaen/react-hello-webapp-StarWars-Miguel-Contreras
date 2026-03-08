@@ -36,7 +36,7 @@ export const Navbar = () => {
       {/* --- BARRA DE BÚSQUEDA --- */}
       <div className="d-flex align-items-center gap-2" style={{ position: "relative" }}>
     
-    {/* Label a la izquierda con estilo Star Wars */}
+    {/* Label con estilo Star Wars */}
     <label 
         htmlFor="buscador-galactico" 
         className="text-warning fw-bold mb-0 text-nowrap" 
@@ -63,7 +63,7 @@ export const Navbar = () => {
                 className="list-group-item list-group-item-dark list-group-item-action border-warning"
                 style={{ cursor: "pointer", fontSize: "0.8rem" }}
                 onClick={() => {
-    setBusqueda(""); // Limpiamos el texto escrito
+    setBusqueda(""); 
     
     let path = "";
     // Comprobamos en qué lista está para saber a qué página ir
@@ -72,7 +72,7 @@ export const Navbar = () => {
     else if (store.naves?.some(p => p._id === item._id)) path = "Naves";
 
     if (path) {
-        // LA CLAVE: El segundo argumento debe ser el objeto con 'state'
+        
         navigate(`/${path}`, { state: { selectedId: item._id } }); 
     }
 }}

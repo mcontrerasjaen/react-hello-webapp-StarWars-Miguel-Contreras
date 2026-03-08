@@ -8,7 +8,7 @@
 
 .galaxy-image {
   position: absolute;
-  width: 110%; height: 110%; /* Un poco más grande para la animación */
+  width: 110%; height: 110%; 
   top: -5%; left: -5%;
   background-image: url('https://images.unsplash.com');
   background-size: cover;
