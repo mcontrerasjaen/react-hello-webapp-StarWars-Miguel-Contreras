@@ -22,7 +22,7 @@ export const Layout = () => {
 
               <div style={{ 
     position: "absolute", 
-    top: "100px", // <--- Aumenta esto (estaba en 20px) para que baje
+    top: "100px", 
     left: "40px", 
     zIndex: 2000,
     pointerEvents: "none"
