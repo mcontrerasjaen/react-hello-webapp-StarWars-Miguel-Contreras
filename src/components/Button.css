@@ -7,7 +7,7 @@
     ransition: all 0.3s ease-in-out; 
 }
 
-/* 2. Estilo cuando el botón está SELECCIONADO */
+
 .nav-btn-active {
     background-color: #ffc107 !important;
     color: #000 !important;
@@ -15,7 +15,7 @@
     box-shadow: 0 0 20px rgba(255, 193, 7, 0.6); 
 }
 
-/* 3. Efecto al pasar el mouse (Hover) */
+
 .nav-btn-custom:hover {
     background-color: rgba(255, 193, 7, 0.1);
     color: #ffc107;
