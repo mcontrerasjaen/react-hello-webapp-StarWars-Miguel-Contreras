@@ -31,7 +31,7 @@ export const Personajes = () => {
             const data = await response.json();
             setSeleccionado(data); // Guardamos la info completa
         } catch (error) {
-            console.error("Error al obtener detalles:", error);
+            console.error("Error al obtener los detalles:", error);
         }
     };
 
