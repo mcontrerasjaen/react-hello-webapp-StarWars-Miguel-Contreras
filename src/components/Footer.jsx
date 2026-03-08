@@ -1,7 +1,7 @@
 export const Footer = () => (
-	<footer className="footer bg-warning mt-auto py-1 text-center fw-bold">
+	<footer  className="footer bg-warning py-3 text-center fw-bold mt-auto mb-3">
 		<p>
-			Que la fuerza te acompañe... | Made with <i className="fa fa-heart text-danger" /> by Miguel C.
+			Que la fuerza te acompañe... | Made with <i className="fa fa-heart text-dark" /> by Miguel C.
 		</p>
 	</footer>
 );

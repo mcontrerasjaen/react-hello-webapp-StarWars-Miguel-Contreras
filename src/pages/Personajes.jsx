@@ -1,24 +1,18 @@
 import { useEffect, useState } from "react";
+import { DetallesPersonaje } from "../components/DetallesPersonaje";
 
 export const Personajes = () => {
-    
     const [character, setCharacter] = useState([]);
     const [loading, setLoading] = useState(true);
+    // Nuevo estado para el personaje seleccionado
+    const [seleccionado, setSeleccionado] = useState(null);
 
     useEffect(() => {
         const obtenerDatos = async () => {
             try {
-                // 2. Fetch a la URL con mayúscula como indicaste
                 const response = await fetch("https://starwars-databank-server.vercel.app/api/v1/characters");
-                
-                if (!response.ok) {
-                    throw new Error("Error en la conexión con la API");
-                }
-                
                 const data = await response.json();
-                
-                // 3. Importante: Guardamos data.data (donde vienen los 10 personajes)
-                setCharacter(data.data); 
+                setCharacter(data.data);
                 setLoading(false);
             } catch (error) {
                 console.error("Error en el hiperespacio:", error);
@@ -28,7 +22,17 @@ export const Personajes = () => {
         obtenerDatos();
     }, []);
 
-    
+    // Función para obtener la info completa del personaje al hacer click
+    const verDetalles = async (id) => {
+        try {
+            const response = await fetch(`https://starwars-databank-server.vercel.app/api/v1/characters/${id}`);
+            const data = await response.json();
+            setSeleccionado(data); // Guardamos la info completa
+        } catch (error) {
+            console.error("Error al obtener detalles:", error);
+        }
+    };
+
     if (loading) {
         return (
             <div className="d-flex justify-content-center mt-5">
@@ -39,8 +43,23 @@ export const Personajes = () => {
         );
     }
 
+    // Si hay un personaje seleccionado, mostramos el componente de detalles en lugar de la lista
+    if (seleccionado) {
+        return <DetallesPersonaje info={seleccionado} volver={() => setSeleccionado(null)} />;
+    }
+
+    const wordText = (text, wordLimit) => {
+        if (!text) return "";
+        const words = text.split(" ");
+        return words.length > wordLimit ? words.slice(0, wordLimit).join(" ") + "..." : text;
+    };
+
     return (
-        <div className="container mt-4">
+        <div className="container mt-3 pt-4">
+            <div className="text-center mb-5">
+                <h1 className="text-warning fw-bold">&gt;&gt;&gt; PERSONAJES &lt;&lt;&lt;</h1>
+            </div>
+
             <div className="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4">
                 {character.map((personaje) => (
                     <div className="col" key={personaje._id}>
@@ -51,9 +70,13 @@ export const Personajes = () => {
                                 alt={personaje.name}
                                 style={{ height: "200px", objectFit: "cover" }}
                             />
-                            <div className="card-body text-center p-2">
-                                <h6 className="card-title text-warning text-truncate">{personaje.name}</h6>
-                                <button className="btn btn-outline-warning btn-sm mt-2 w-100">
+                            <div className="card-body d-flex flex-column">
+                                <h5 className="card-title">{personaje.name}</h5>
+                                <p className="small">{wordText(personaje.description, 10)}</p>
+                                <button 
+                                    onClick={() => verDetalles(personaje._id)} 
+                                    className="btn btn-outline-warning btn-sm mt-auto w-100"
+                                >
                                     Ver detalles
                                 </button>
                             </div>

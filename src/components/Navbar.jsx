@@ -2,12 +2,13 @@ import { NavLink } from "react-router-dom";
 import "./Button.css"
 
 export const Navbar = () => {
-  // Clase base y clase cuando está activo
-  const activeStyle = "btn btn-warning fw-bold"; // Fondo amarillo, letras negras
-  const inactiveStyle = "btn btn-outline-warning fw-bold"; // Solo borde amarillo
+  
+  const activeStyle = "btn btn-warning fw-bold";
+  const inactiveStyle = "btn btn-outline-warning fw-bold"; 
 
   return (
     <nav className="navbar navbar-dark bg-dark px-3">
+      
       <NavLink 
         to="/" 
   className={({ isActive }) => 
@@ -47,11 +48,12 @@ export const Navbar = () => {
 
 		<NavLink 
           to="/Favoritos" 
-          className={({ isActive }) => isActive ? activeStyle : inactiveStyle}
+          className={({ isActive }) => 
+    isActive ? "btn nav-btn-custom nav-btn-active" : "btn nav-btn-custom"}
         >
-          Favoritos
+          FAVORITOS
         </NavLink>
-        {/* Repite lo mismo para Naves, Planetas, etc. */}
+        
       </div>
     </nav>
   );

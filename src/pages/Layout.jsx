@@ -7,7 +7,7 @@ import { StarWarsBackground } from "../components/StarWarsBackground"
 export const Layout = () => {
     return (
         <ScrollToTop>
-            {/* El fondo siempre presente, pero SIN las letras */}
+            <div className="d-flex flex-column min-vh-100">
             <StarWarsBackground showCrawl={false} /> 
         <header style={{ position: 'relative', zIndex: 1000 }}>
                 <Navbar />
@@ -16,6 +16,7 @@ export const Layout = () => {
                 <Outlet />
             </main>
             <Footer />
+            </div>
         </ScrollToTop>
     )
 }
