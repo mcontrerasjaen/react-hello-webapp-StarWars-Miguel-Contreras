@@ -19,7 +19,7 @@ export const StarWarsBackground = ({ showCrawl = true }) => {
             <h1 className="title">LA FUERZA DEL CÓDIGO</h1>
             <p className="story">
               En un rincón remoto de la web, <br/>
-              un desarrollador despliega su talento. <br/><br/>
+              un desarrollador intenta hacerse con el mando. <br/><br/>
               Con React como aliado y Bootstrap como escudo, <br/>
               la galaxia entera espera su creación...
             </p>

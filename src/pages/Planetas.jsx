@@ -1,23 +1,19 @@
 import { useEffect, useState } from "react";
+import { DetallesPlaneta } from "../components/DetallesPlaneta";
+import useGlobalReducer from "../hooks/useGlobalReducer";
 
 export const Planetas = () => {
+    const { store, dispatch } = useGlobalReducer();
 
     const [location, setLocation] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [seleccionado, setSeleccionado] = useState(null);
 
     useEffect(() => {
         const obtenerDatos = async () => {
             try {
-                // 2. Fetch a la URL con mayúscula como indicaste
                 const response = await fetch("https://starwars-databank-server.vercel.app/api/v1/locations");
-
-                if (!response.ok) {
-                    throw new Error("Error en la conexión con la API");
-                }
-
                 const data = await response.json();
-
-                // 3. Importante: Guardamos data.data (donde vienen los 10 personajes)
                 setLocation(data.data);
                 setLoading(false);
             } catch (error) {
@@ -28,6 +24,16 @@ export const Planetas = () => {
         obtenerDatos();
     }, []);
 
+    // Función para obtener la info completa del personaje al hacer click
+    const verDetalles = async (id) => {
+        try {
+            const response = await fetch(`https://starwars-databank-server.vercel.app/api/v1/locations/${id}`);
+            const data = await response.json();
+            setSeleccionado(data); // Guardamos la info completa
+        } catch (error) {
+            console.error("Error al obtener detalles:", error);
+        }
+    };
 
     if (loading) {
         return (
@@ -39,22 +45,21 @@ export const Planetas = () => {
         );
     }
 
+    // Si hay un personaje seleccionado, mostramos el componente de detalles en lugar de la lista
+    if (seleccionado) {
+        return <DetallesPlaneta info={seleccionado} volver={() => setSeleccionado(null)} />;
+    }
+
     const wordText = (text, wordLimit) => {
         if (!text) return "";
         const words = text.split(" ");
-        if (words.length > wordLimit) {
-            return words.slice(0, wordLimit).join(" ") + "...";
-        }
-        return text;
+        return words.length > wordLimit ? words.slice(0, wordLimit).join(" ") + "..." : text;
     };
 
     return (
         <div className="container mt-3 pt-4">
-            {/* Título centrado con flechas */}
             <div className="text-center mb-5">
-                <h1 className="text-warning fw-bold">
-                    &gt;&gt;&gt; PLANETAS &lt;&lt;&lt;
-                </h1>
+                <h1 className="text-warning fw-bold">&gt;&gt;&gt; PLANETAS &lt;&lt;&lt;</h1>
             </div>
 
             <div className="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4">
@@ -68,12 +73,23 @@ export const Planetas = () => {
                                 style={{ height: "200px", objectFit: "cover" }}
                             />
                             <div className="card-body d-flex flex-column">
-                                <h5 className="card-title">{planeta.name}</h5>
-                                <p>{wordText(planeta.description, 15)}</p>
-                                 <button className="btn btn-outline-warning btn-sm mt-auto w-100">
-                                    Ver detalles
-                                </button>
-                            </div>
+                               <div className="d-flex justify-content-between align-items-center mb-2">
+                <h5 className="card-title ard-title text-warning mb-0">{planeta.name}</h5>
+                {/* BOTÓN DE FAVORITO */}
+                <button 
+                    className="btn btn-link p-0 text-decoration-none"
+                    onClick={() => dispatch({ type: 'toggle_favorito', payload: planeta })}
+                >
+                    {store.favoritos.some(f => f._id === planeta._id) 
+                        ? "💛"
+                        : "🤍"}
+                </button>
+            </div>
+            <p className="small">{wordText(planeta.description, 10)}</p>
+            <button onClick={() => verDetalles(planeta._id)} className="btn btn-outline-warning btn-sm mt-auto w-100">
+                Ver detalles
+            </button>
+        </div>
                         </article>
                     </div>
                 ))}

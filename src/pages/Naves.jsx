@@ -1,78 +1,69 @@
 import { useEffect, useState } from "react";
+import { DetallesNave } from "../components/DetallesNave";
+import useGlobalReducer from "../hooks/useGlobalReducer";
 
 export const Naves = () => {
-
-    const [vehicle, setVehicle] = useState([]);
+    const { store, dispatch } = useGlobalReducer();
+    const [vehicles, setVehicles] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [seleccionado, setSeleccionado] = useState(null);
 
     useEffect(() => {
         const obtenerDatos = async () => {
             try {
-                // 2. Fetch a la URL con mayúscula como indicaste
                 const response = await fetch("https://starwars-databank-server.vercel.app/api/v1/vehicles");
-
-                if (!response.ok) {
-                    throw new Error("Error en la conexión con la API");
-                }
-
                 const data = await response.json();
-
-                // 3. Importante: Guardamos data.data (donde vienen los 10 personajes)
-                setVehicle(data.data);
+                setVehicles(data.data);
                 setLoading(false);
             } catch (error) {
-                console.error("Error en el hiperespacio:", error);
+                console.error("Error:", error);
                 setLoading(false);
             }
         };
         obtenerDatos();
     }, []);
 
+    const verDetalles = async (id) => {
+        try {
+            const response = await fetch(`https://starwars-databank-server.vercel.app/api/v1/vehicles/${id}`);
+            const data = await response.json();
+            setSeleccionado(data);
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    };
 
-    if (loading) {
-        return (
-            <div className="d-flex justify-content-center mt-5">
-                <div className="spinner-border text-warning" role="status">
-                    <span className="visually-hidden">Cargando...</span>
-                </div>
-            </div>
-        );
+    if (loading) return <div className="d-flex justify-content-center mt-5"><div className="spinner-border text-warning"></div></div>;
+
+    if (seleccionado) {
+        return <DetallesNave info={seleccionado} volver={() => setSeleccionado(null)} />;
     }
 
     const wordText = (text, wordLimit) => {
         if (!text) return "";
         const words = text.split(" ");
-        if (words.length > wordLimit) {
-            return words.slice(0, wordLimit).join(" ") + "...";
-        }
-        return text;
+        return words.length > wordLimit ? words.slice(0, wordLimit).join(" ") + "..." : text;
     };
 
     return (
         <div className="container mt-3 pt-4">
-            {/* Título centrado con flechas */}
             <div className="text-center mb-5">
-                <h1 className="text-warning fw-bold">
-                    &gt;&gt;&gt; NAVES &lt;&lt;&lt;
-                </h1>
+                <h1 className="text-warning fw-bold">&gt;&gt;&gt; NAVES &lt;&lt;&lt;</h1>
             </div>
-
             <div className="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4">
-                {vehicle.map((nave) => (
+                {vehicles.map((nave) => (
                     <div className="col" key={nave._id}>
                         <article className="card h-100 bg-dark text-light border-secondary shadow-lg">
-                            <img
-                                src={nave.image}
-                                className="card-img-top"
-                                alt={nave.name}
-                                style={{ height: "200px", objectFit: "cover" }}
-                            />
+                            <img src={nave.image} className="card-img-top" alt={nave.name} style={{ height: "200px", objectFit: "cover" }} />
                             <div className="card-body d-flex flex-column">
-                                <h5 className="card-title">{nave.name}</h5>
-                                <p>{wordText(nave.description, 15)}</p>
-                                 <button className="btn btn-outline-warning btn-sm mt-auto w-100">
-                                    Ver detalles
-                                </button>
+                                <div className="d-flex justify-content-between align-items-center mb-2">
+                                    <h5 className="card-title text-warning mb-0">{nave.name}</h5>
+                                    <button className="btn btn-link p-0 text-decoration-none" onClick={() => dispatch({ type: 'toggle_favorito', payload: nave })}>
+                                        {store.favoritos.some(f => f._id === nave._id) ? "💛" : "🤍"}
+                                    </button>
+                                </div>
+                                <p className="small text-white">{wordText(nave.description, 10)}</p>
+                                <button onClick={() => verDetalles(nave._id)} className="btn btn-outline-warning btn-sm mt-auto w-100">Ver detalles</button>
                             </div>
                         </article>
                     </div>
