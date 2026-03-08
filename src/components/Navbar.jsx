@@ -33,15 +33,27 @@ export const Navbar = () => {
         HOME
       </NavLink>
 
-      {/* --- BARRA DE BÚSQUEDA INTEGRADA --- */}
-      <div style={{ position: "relative", width: "250px" }}>
+      {/* --- BARRA DE BÚSQUEDA --- */}
+      <div className="d-flex align-items-center gap-2" style={{ position: "relative" }}>
+    
+    {/* Label a la izquierda con estilo Star Wars */}
+    <label 
+        htmlFor="buscador-galactico" 
+        className="text-warning fw-bold mb-0 text-nowrap" 
+        style={{ fontSize: "0.75rem", letterSpacing: "1px" }}
+    >
+        ¿QUÉ BUSCAMOS?
+    </label>
+
+    <div style={{ position: "relative", width: "220px" }}>
         <input
-          type="text"
-          className="form-control bg-black text-warning border-warning shadow-none"
-          placeholder="Buscar en la galaxia..."
-          style={{ fontSize: "0.8rem" }}
-          value={busqueda}
-          onChange={(e) => setBusqueda(e.target.value)}
+            id="buscador-galactico"
+            type="text"
+            className="form-control bg-black text-warning border-warning shadow-none"
+            placeholder="Escribe un nombre..."
+            style={{ fontSize: "0.8rem" }}
+            value={busqueda}
+            onChange={(e) => setBusqueda(e.target.value)}
         />
         {sugerencias.length > 0 && (
           <ul className="list-group position-absolute w-100 shadow-lg" style={{ zIndex: 3000, top: "40px" }}>
@@ -70,6 +82,7 @@ export const Navbar = () => {
             ))}
           </ul>
         )}
+      </div>
       </div>
 
       <div className="d-flex gap-2">
