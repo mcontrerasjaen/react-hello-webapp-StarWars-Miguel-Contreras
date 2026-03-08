@@ -1,24 +1,37 @@
+import useGlobalReducer from "../hooks/useGlobalReducer"; // 1. Importamos el hook
+
 export const DetallesPersonaje = ({ info, volver }) => {
-    // Si por alguna razón info llega vacío, no renderizamos nada
-    if (!info) return null;
+    const { store, dispatch } = useGlobalReducer(); // 2. Accedemos al store y al dispatch
     
-    // Extraemos los datos para asegurar que lleguen bien
+    if (!info) return null;
     const personaje = info.data || info;
+
+    // 3. Comprobamos si ya es favorito
+    const esFavorito = store.favoritos.some(f => f._id === personaje._id);
     
     return (
-        /* He añadido py-5 para que la card respire más por arriba y abajo */
         <div className="container mt-5 p-5 bg-dark text-light rounded border border-warning shadow-lg min-vh-75">
-            <button onClick={volver} className="btn btn-outline-warning mb-5 px-4 fw-bold">
-                ← VOLVER A LA LISTA
-            </button>
+            <div className="d-flex justify-content-between align-items-start mb-4">
+                <button onClick={volver} className="btn btn-outline-warning px-4 fw-bold">
+                    ← VOLVER A LA LISTA
+                </button>
+
+                {/* BOTÓN DE FAVORITO EN EL DETALLE */}
+                <button 
+                    className="btn btn-outline-warning border-0 fs-2"
+                    onClick={() => dispatch({ type: 'toggle_favorito', payload: personaje })}
+                    title={esFavorito ? "Quitar de favoritos" : "Añadir a favoritos"}
+                >
+                    {esFavorito ? "💛" : "🤍"}
+                </button>
+            </div>
             
-            <div className="row align-items-center"> {/* Centra verticalmente imagen y texto */}
+            <div className="row align-items-center">
                 <div className="col-md-5 text-center">
                     <img 
                         src={personaje.image} 
                         className="img-fluid rounded shadow" 
                         alt={personaje.name}
-                        /* Subimos el maxHeight a 600px para que la imagen sea imponente */
                         style={{ 
                             width: "100%",
                             maxHeight: "600px", 
@@ -28,13 +41,10 @@ export const DetallesPersonaje = ({ info, volver }) => {
                     />
                 </div>
                 
-                {/* padding lateral (ps-md-5) para separar el texto de la imagen */}
                 <div className="col-md-7 ps-md-5">
-                    {/* display-2 o display-3 hace el nombre mucho más grande */}
                     <h1 className="text-warning display-3 fw-bold mb-4">{personaje.name}</h1>
                     <hr className="bg-warning mb-4" style={{ height: "3px", opacity: "1" }} />
                     
-                    {/* fs-4 para que el cuerpo de la descripción sea más legible y grande */}
                     <p className="fs-4 lh-base" style={{ textAlign: "justify", color: "#f8f9fa" }}>
                         {personaje.description || "No hay descripción disponible para este personaje."}
                     </p>
