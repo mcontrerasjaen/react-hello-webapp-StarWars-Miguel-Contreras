@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { DetallesPersonaje } from "../components/DetallesPersonaje";
+import useGlobalReducer from "../hooks/useGlobalReducer";
 
 export const Personajes = () => {
+    const { store, dispatch } = useGlobalReducer();
+
     const [character, setCharacter] = useState([]);
     const [loading, setLoading] = useState(true);
-    // Nuevo estado para el personaje seleccionado
     const [seleccionado, setSeleccionado] = useState(null);
 
     useEffect(() => {
@@ -71,15 +73,23 @@ export const Personajes = () => {
                                 style={{ height: "200px", objectFit: "cover" }}
                             />
                             <div className="card-body d-flex flex-column">
-                                <h5 className="card-title">{personaje.name}</h5>
-                                <p className="small">{wordText(personaje.description, 10)}</p>
-                                <button 
-                                    onClick={() => verDetalles(personaje._id)} 
-                                    className="btn btn-outline-warning btn-sm mt-auto w-100"
-                                >
-                                    Ver detalles
-                                </button>
-                            </div>
+                               <div className="d-flex justify-content-between align-items-center mb-2">
+                <h5 className="card-title ard-title text-warning mb-0">{personaje.name}</h5>
+                {/* BOTÓN DE FAVORITO */}
+                <button 
+                    className="btn btn-link p-0 text-decoration-none"
+                    onClick={() => dispatch({ type: 'toggle_favorito', payload: personaje })}
+                >
+                    {store.favoritos.some(f => f._id === personaje._id) 
+                        ? "💛"
+                        : "🤍"}
+                </button>
+            </div>
+            <p className="small">{wordText(personaje.description, 10)}</p>
+            <button onClick={() => verDetalles(personaje._id)} className="btn btn-outline-warning btn-sm mt-auto w-100">
+                Ver detalles
+            </button>
+        </div>
                         </article>
                     </div>
                 ))}

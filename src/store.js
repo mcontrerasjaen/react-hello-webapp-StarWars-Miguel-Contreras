@@ -3,6 +3,7 @@ export const initialStore = () => {
     personajes: [],
     naves: [],
     planetas: [],
+    favoritos: [], 
   }
 }
 
@@ -23,6 +24,18 @@ export default function storeReducer(store, action = {}) {
         ...store,
         planetas: action.payload
       };
+      case 'toggle_favorito':
+  const item = action.payload;
+ 
+  const existe = store.favoritos.some(fav => fav._id === item._id);
+  
+  return {
+    ...store,
+    favoritos: existe 
+      ? store.favoritos.filter(fav => fav._id !== item._id) 
+      : [...store.favoritos, item]
+  };
+      
     default:
       return store;
   }

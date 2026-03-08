@@ -1,8 +1,10 @@
 import { NavLink } from "react-router-dom";
 import "./Button.css"
+import useGlobalReducer from "../hooks/useGlobalReducer"; 
 
 export const Navbar = () => {
   
+  const { store } = useGlobalReducer(); 
   const activeStyle = "btn btn-warning fw-bold";
   const inactiveStyle = "btn btn-outline-warning fw-bold"; 
 
@@ -52,6 +54,9 @@ export const Navbar = () => {
     isActive ? "btn nav-btn-custom nav-btn-active" : "btn nav-btn-custom"}
         >
           FAVORITOS
+          <span className="badge rounded-pill bg-warning text-dark ms-2 fw-bold">
+        {store?.favoritos?.length || 0}
+      </span>
         </NavLink>
         
       </div>

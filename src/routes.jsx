@@ -10,7 +10,8 @@ import { Home } from "./pages/Home";
 import { Personajes } from "./pages/Personajes";
 import { Naves } from "./pages/Naves";
 import { Planetas } from "./pages/Planetas";
-//import {Personaje } from "./components/Personaje"
+import { Favoritos } from "./pages/Favoritos";
+
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -25,11 +26,11 @@ export const router = createBrowserRouter(
 
         {/* Nested Routes: Defines sub-routes within the BaseHome component. */}
         <Route path= "/" element={<Home />} />
-        <Route path="*" element={<h1>Error: 404 - Perdido en el espacio</h1>} />
+        <Route path="*" element={<h1 className="d-flex justify-content-center align-items-center text-white vh-100">Error: 404 - Perdido en el espacio</h1>} />
         <Route path= "/personajes" element={<Personajes />} />
         <Route path= "/naves" element={<Naves />} />
         <Route path= "/planetas" element={<Planetas />} />
-       
+        <Route path="/favoritos" element={<Favoritos />} /> 
       </Route>
     )
 );
