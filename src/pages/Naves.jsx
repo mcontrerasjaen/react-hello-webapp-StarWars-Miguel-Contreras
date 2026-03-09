@@ -27,7 +27,7 @@ export const Naves = () => {
             }
 
             try {
-                const response = await fetch("https://starwars-databank-server.vercel.app/api/v1/vehicles");
+                const response = await fetch("https://starwars-databank-server.vercel.app/api/v1/vehicles?page=2&limit=60");
                 const data = await response.json();
 
                 dispatch({ type: 'set_naves', payload: data.data });
@@ -71,7 +71,7 @@ export const Naves = () => {
     };
 
     return (
-        <div className="container mt-3 pt-4">
+        <div className="container mt-3 pt-4 pb-3">
             <div className="text-center mb-5">
                 <h1 className="text-warning fw-bold">&gt;&gt;&gt; NAVES &lt;&lt;&lt;</h1>
             </div>

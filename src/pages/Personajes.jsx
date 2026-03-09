@@ -28,7 +28,7 @@ export const Personajes = () => {
             }
 
             try {
-                const response = await fetch("https://starwars-databank-server.vercel.app/api/v1/characters");
+                const response = await fetch("https://starwars-databank-server.vercel.app/api/v1/characters?page=2&limit=60");
                 const data = await response.json();
 
 
@@ -73,7 +73,7 @@ export const Personajes = () => {
     };
 
     return (
-        <div className="container mt-3 pt-4">
+        <div className="container mt-3 pt-4 pb-3">
             <div className="text-center mb-5">
                 <h1 className="text-warning fw-bold">&gt;&gt;&gt; PERSONAJES &lt;&lt;&lt;</h1>
             </div>
