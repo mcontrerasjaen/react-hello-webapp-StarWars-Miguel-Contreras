@@ -6,7 +6,7 @@ export const DetallesPersonaje = ({ info, volver }) => {
     if (!info) return null;
     const personaje = info.data || info;
 
-    // 3. Comprobamos si ya es favorito
+    //Comprobamos si ya es favorito
     const esFavorito = store.favoritos.some(f => f._id === personaje._id);
     
     return (

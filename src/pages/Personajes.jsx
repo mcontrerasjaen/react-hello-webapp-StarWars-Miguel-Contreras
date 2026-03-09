@@ -1,25 +1,24 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom"; // IMPORTANTE para el buscador
+import { useLocation } from "react-router-dom";
 import { DetallesPersonaje } from "../components/DetallesPersonaje";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 
 export const Personajes = () => {
     const { store, dispatch } = useGlobalReducer();
-    const location = useLocation(); // Escucha al buscador
+    const location = useLocation();
 
     const [loading, setLoading] = useState(true);
     const [seleccionado, setSeleccionado] = useState(null);
 
-    // 1. EFECTO: Si venimos del buscador, cargar detalle automáticamente
+
     useEffect(() => {
         if (location.state?.selectedId) {
             verDetalles(location.state.selectedId);
-            // Limpiamos el "sobre" para que no se repita al refrescar
             window.history.replaceState({}, document.title);
         }
     }, [location.state]);
 
-    // 2. EFECTO: Cargar datos con persistencia (+1)
+
     useEffect(() => {
         const obtenerDatos = async () => {
             // Si ya están en el store, no hacemos fetch
@@ -29,10 +28,10 @@ export const Personajes = () => {
             }
 
             try {
-                const response = await fetch("https://starwars-databank-server.vercel.app/api/v1/characters");
+                const response = await fetch("https://starwars-databank-server.vercel.app/api/v1/characters?page=2&limit=60");
                 const data = await response.json();
-                
-                // GUARDAMOS EN GLOBAL para que el buscador funcione (+3)
+
+
                 dispatch({ type: 'set_personajes', payload: data.data });
                 setLoading(false);
             } catch (error) {
@@ -74,13 +73,12 @@ export const Personajes = () => {
     };
 
     return (
-        <div className="container mt-3 pt-4">
+        <div className="container mt-3 pt-4 pb-3">
             <div className="text-center mb-5">
                 <h1 className="text-warning fw-bold">&gt;&gt;&gt; PERSONAJES &lt;&lt;&lt;</h1>
             </div>
 
             <div className="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4">
-                {/* MAPEAMOS DESDE EL STORE GLOBAL PARA QUE TODO ESTÉ SINCRONIZADO */}
                 {store.personajes.map((personaje) => (
                     <div className="col" key={personaje._id}>
                         <article className="card h-100 bg-dark text-light border-secondary shadow-lg">
@@ -93,7 +91,7 @@ export const Personajes = () => {
                             <div className="card-body d-flex flex-column">
                                 <div className="d-flex justify-content-between align-items-center mb-2">
                                     <h5 className="card-title text-warning mb-0">{personaje.name}</h5>
-                                    <button 
+                                    <button
                                         className="btn btn-link p-0 text-decoration-none"
                                         onClick={() => dispatch({ type: 'toggle_favorito', payload: personaje })}
                                     >

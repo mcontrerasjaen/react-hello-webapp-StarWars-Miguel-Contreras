@@ -4,23 +4,21 @@
     border: 2px solid #ffc107;
     font-weight: bold;
     text-transform: uppercase;
-    /* --- AQUÍ EL PUNTO 3: LA TRANSICIÓN --- */
     transition: all 0.3s ease-in-out; 
 }
 
-/* 2. Estilo cuando el botón está SELECCIONADO */
+
 .nav-btn-active {
     background-color: #ffc107 !important;
     color: #000 !important;
     border-color: #ffc107;
-    /* --- AQUÍ EL PUNTO 3: EL BRILLO LLAMATIVO --- */
+    
     box-shadow: 0 0 20px rgba(255, 193, 7, 0.6); 
 }
 
-/* 3. Efecto al pasar el mouse (Hover) */
 .nav-btn-custom:hover {
     background-color: rgba(255, 193, 7, 0.1);
     color: #ffc107;
-    box-shadow: 0 0 10px #ffc107; /* Brillo más suave al pasar el mouse */
+    box-shadow: 0 0 10px #ffc107;
     cursor: pointer;
 }

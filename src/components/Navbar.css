@@ -22,7 +22,3 @@
     color: #000000 !important;           
     box-shadow: 0 0 15px currentColor;  
 }
-
-/* Ajuste para los botones específicos (opcional, si quieres mantener los colores) */
-/* Si prefieres que todos sean amarillos, borra las clases .blue, .green, .red de tu CSS */
-.red { border-color: #ff0000; color: #ff0000; }

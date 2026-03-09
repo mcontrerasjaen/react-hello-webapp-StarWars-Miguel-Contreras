@@ -2,7 +2,7 @@ import React from 'react';
 import './StarWarsBackground.css';
 import galaxyImage from '../assets/img/StarWars2.jpg'
 
-// Añadimos showCrawl como parámetro (por defecto es true)
+// Añadimos showCrawl como parámetro
 export const StarWarsBackground = ({ showCrawl = true }) => {
   return (
     <div className="galaxy-container">
