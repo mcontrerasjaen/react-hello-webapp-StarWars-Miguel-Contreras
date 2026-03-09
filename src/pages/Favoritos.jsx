@@ -12,12 +12,14 @@ export const Favoritos = () => {
 
     return (
         <div className="container mt-5 pt-5 text-light text-center">
-            <h1 className="text-warning fw-bold mb-5">MIS FAVORITOS ({favoritos.length})</h1>
+            <h1 className="text-warning fw-bold mb-4 mb-md-5 display-6 display-md-4">
+    MIS FAVORITOS <span className="badge bg-warning text-dark">{favoritos.length}</span>
+</h1>
 
             {favoritos.length === 0 ? (
                 <h3 className="text-white mt-5">No tenemos nada en tu lista negra...</h3>
             ) : (
-                <div className="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4 text-start">
+                <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xxl-5 g-3 g-lg-4 text-start">
                     {favoritos.map((fav) => (
                         <div className="col" key={fav._id}>
                             <article className="card h-100 bg-dark text-light border-warning shadow">
