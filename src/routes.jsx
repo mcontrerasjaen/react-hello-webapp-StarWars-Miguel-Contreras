@@ -10,6 +10,10 @@ import { Home } from "./pages/Home";
 import { Personajes } from "./pages/Personajes";
 import { Naves } from "./pages/Naves";
 import { Planetas } from "./pages/Planetas";
+import { Criaturas } from "./pages/Criaturas";
+import { Droides } from "./pages/Droides";
+import { Species } from "./pages/Species";
+import { Organizaciones } from "./pages/Organizaciones";
 import { Favoritos } from "./pages/Favoritos";
 
 
@@ -30,6 +34,10 @@ export const router = createBrowserRouter(
         <Route path= "/personajes" element={<Personajes />} />
         <Route path= "/naves" element={<Naves />} />
         <Route path= "/planetas" element={<Planetas />} />
+        <Route path= "/criaturas" element={<Criaturas />} />
+        <Route path= "/droides" element={<Droides />} />
+        <Route path= "/species" element={<Species />} />
+        <Route path= "/organizaciones" element={<Organizaciones />} />
         <Route path="/favoritos" element={<Favoritos />} /> 
       </Route>
     )

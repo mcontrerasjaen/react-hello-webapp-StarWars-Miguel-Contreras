@@ -11,6 +11,10 @@ export const initialStore = () => {
     personajes: [],
     naves: [],
     planetas: [],
+    criaturas: [],
+    droides: [],
+    species: [],
+    organizaciones: [],
     favoritos: [], 
   }
 }
@@ -24,6 +28,14 @@ export default function storeReducer(store, action = {}) {
       return { ...store, naves: action.payload };
     case 'set_planetas':
       return { ...store, planetas: action.payload };
+      case 'set_criaturas':
+      return { ...store, criaturas: action.payload };
+       case 'set_droides':
+      return { ...store, droides: action.payload };
+      case 'set_species':
+      return { ...store, species: action.payload };
+      case 'set_organizaciones':
+      return { ...store, organizaciones: action.payload };
     case 'toggle_favorito':
       const item = action.payload;
       const existe = store.favoritos.some(fav => fav._id === item._id);
