@@ -7,40 +7,58 @@ import logoStarWars from "../assets/img/LogoStarWars.jpg";
 
 export const Layout = () => {
     return (
-        <div>
-            <div className="d-flex flex-column min-vh-100" style={{ position: "relative" }}>
-                <ScrollToTop />
-                <StarWarsBackground showCrawl={false} />
+        <div style={{ minHeight: "100vh", position: "relative" }}>
+            <ScrollToTop />
+            <StarWarsBackground showCrawl={false} />
 
-                <header style={{ position: "relative", zIndex: 1000 }}>
-                    <Navbar />
-                </header>
+            {/* NAVBAR FIJO */}
+            <header style={{ 
+                position: "fixed", 
+                top: 0, 
+                left: 0,
+                width: "100%", 
+                zIndex: 3000 
+            }}>
+                <Navbar />
+            </header>
 
-                <div style={{
-                    position: "absolute",
-                    top: "100px",
-                    left: "40px",
-                    zIndex: 2000,
-                    pointerEvents: "none"
-                }}>
-                    <img
-                        src={logoStarWars}
-                        alt="Star Wars Logo"
-                        style={{
-                            height: "140px",
-                            width: "auto",
-                            filter: "drop-shadow(0 0 10px rgba(255, 193, 7, 0.4))",
-                            pointerEvents: "auto"
-                        }}
-                    />
-                </div>
-                <main className="flex-grow-1" style={{ position: "relative", zIndex: 1 }}>
-                    <Outlet />
-                </main>
-                <footer style={{ position: "relative", zIndex: 1000 }}>
-                    <Footer />
-                </footer>
-            </div>
+            {/* LOGO FIJO - Sube el z-index para que no lo tape nada */}
+            <div style={{
+    position: "fixed",
+    top: "clamp(60px, 10vh, 100px)", // Se ajusta según el tamaño de pantalla
+    left: "clamp(10px, 5vw, 40px)",  // Se pega al borde en móviles
+    zIndex: 4000,
+    pointerEvents: "none"
+}}>
+    <img
+        src={logoStarWars}
+        style={{
+            height: "clamp(60px, 15vw, 140px)", // El logo encoge en pantallas pequeñas
+            width: "auto",
+            pointerEvents: "auto"
+        }}
+    />
+</div>
+
+            {/* CONTENIDO CON SCROLL PROPIO */}
+            <main style={{ 
+                paddingTop: "100px",    /* Espacio para que el Nav no tape el inicio */
+                paddingBottom: "80px",   /* Espacio para que el Footer no tape el final */
+                minHeight: "100vh"
+            }}>
+                <Outlet />
+            </main>
+
+            {/* FOOTER FIJO - Asegúrate de que esté AQUÍ para que salga en todas las rutas */}
+            <footer style={{ 
+                position: "fixed", 
+                bottom: 0, 
+                left: 0,
+                width: "100%", 
+                zIndex: 3000 
+            }}>
+                <Footer />
+            </footer>
         </div>
     );
 };
