@@ -78,7 +78,7 @@ export const Organizaciones = () => {
                 <h1 className="text-warning fw-bold">&gt;&gt;&gt; ORGANIZACIONES &lt;&lt;&lt;</h1>
             </div>
 
-            <div className="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4">
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
                 {store.organizaciones.map((organizacion) => (
                     <div className="col" key={organizacion._id}>
                         <article className="card h-100 bg-dark text-light border-secondary shadow-lg">

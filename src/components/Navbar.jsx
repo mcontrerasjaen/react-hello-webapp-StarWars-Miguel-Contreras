@@ -149,7 +149,7 @@ export const Navbar = () => {
         </NavLink>
 
          <NavLink
-          to="/Planetas"
+          to="/Organizaciones"
           className={({ isActive }) =>
             isActive ? "btn nav-btn-custom nav-btn-active" : "btn nav-btn-custom"
           }
