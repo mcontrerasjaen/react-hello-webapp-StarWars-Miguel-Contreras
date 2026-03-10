@@ -4,6 +4,7 @@
   z-index: -1;
   background-color: #000;
   overflow: hidden;
+  padding-top: 2rem;
 }
 
 .galaxy-image {
