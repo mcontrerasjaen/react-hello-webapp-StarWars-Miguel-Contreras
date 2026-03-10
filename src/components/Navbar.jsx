@@ -26,7 +26,7 @@ export const Navbar = () => {
     : [];
 
   return (
-    <nav className="navbar navbar-dark bg-dark px-3 d-flex justify-content-between align-items-center">
+   <nav className="navbar navbar-dark px-4 d-flex justify-content-between align-items-center" style={{ backgroundColor: "#000000" }}>
 
       <NavLink
         to="/"
@@ -46,7 +46,7 @@ export const Navbar = () => {
           className="text-warning fw-bold mb-0 text-nowrap"
           style={{ fontSize: "0.75rem", letterSpacing: "1px" }}
         >
-          BUSCAR:
+          BUSCADOR GALÁCTICO:
         </label>
 
         <div style={{ position: "relative", width: "220px" }}>
@@ -94,68 +94,41 @@ export const Navbar = () => {
       </div>
 
       <div className="d-flex gap-2">
-        <NavLink
-          to="/Personajes"
-          className={({ isActive }) =>
-            isActive ? "btn nav-btn-custom nav-btn-active" : "btn nav-btn-custom"
-          }
-        >
-          Personajes
-        </NavLink>
+      <div className="dropdown d-inline-block">
+  <button
+    className="btn nav-btn-custom dropdown-toggle"
+    type="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    Categorías
+  </button>
 
+  <ul className="dropdown-menu p-2" style={{ backgroundColor: 'black', border: 'none' }}>
+    {[
+      { to: "/Personajes", text: "Personajes" },
+      { to: "/Planetas", text: "Planetas" },
+      { to: "/Naves", text: "Naves" },
+      { to: "/Criaturas", text: "Criaturas" },
+      { to: "/Droides", text: "Droides" },
+      { to: "/Species", text: "Species" },
+      { to: "/Organizaciones", text: "Organizaciones" },
+    ].map((link) => (
+      <li key={link.to} className="mb-1">
         <NavLink
-          to="/Planetas"
+          to={link.to}
           className={({ isActive }) =>
-            isActive ? "btn nav-btn-custom nav-btn-active" : "btn nav-btn-custom"
+            isActive 
+              ? "btn nav-btn-custom nav-btn-active w-100 text-start" 
+              : "btn nav-btn-custom w-100 text-start"
           }
         >
-          Planetas
+          {link.text}
         </NavLink>
-
-        <NavLink
-          to="/Naves"
-          className={({ isActive }) =>
-            isActive ? "btn nav-btn-custom nav-btn-active" : "btn nav-btn-custom"
-          }
-        >
-          Naves
-        </NavLink>
-
-        <NavLink
-          to="/Criaturas"
-          className={({ isActive }) =>
-            isActive ? "btn nav-btn-custom nav-btn-active" : "btn nav-btn-custom"
-          }
-        >
-          Criaturas
-        </NavLink>
-
-        <NavLink
-          to="/Droides"
-          className={({ isActive }) =>
-            isActive ? "btn nav-btn-custom nav-btn-active" : "btn nav-btn-custom"
-          }
-        >
-          Droides
-        </NavLink>
-
-        <NavLink
-          to="/Species"
-          className={({ isActive }) =>
-            isActive ? "btn nav-btn-custom nav-btn-active" : "btn nav-btn-custom"
-          }
-        >
-          Species
-        </NavLink>
-
-         <NavLink
-          to="/Organizaciones"
-          className={({ isActive }) =>
-            isActive ? "btn nav-btn-custom nav-btn-active" : "btn nav-btn-custom"
-          }
-        >
-          Organizaciones
-        </NavLink>
+      </li>
+    ))}
+  </ul>
+</div>
 
         <NavLink
           to="/Favoritos"
